@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brrrgrrr - Custom Burgers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #ffcc00;
+            padding: 30px;
+            text-align: center;
+            color: #fff;
+            font-family: 'Pacifico', cursive;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        #customization {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #ff6600;
+            font-family: 'Pacifico', cursive;
+        }
+        
+        #ingredient-list {
+            margin-bottom: 20px;
+        }
+        
+        #order-confirmation {
+            background-color: #dff0d8;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #ff3300;
+        }
+        
+        label {
+            margin-right: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        h1, p {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Brrrgrrr</h1>
+        <p>Build Your Burger Masterpiece!</p>
+    </header>
+    <main>
+        <section id="customization">
+            <h2>Create Your Perfect Burger</h2>
+            <p>Select from our premium ingredients and craft the burger of your dreams. Mix and match to your heart's content!</p>
+            <div id="ingredient-list"></div>
+            <button id="place-order">Place Your Order</button>
+        </section>
+        <section id="order-confirmation" style="display: none;">
+            <h2>Awesome!</h2>
+            <p id="order-summary"></p>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ingredients = [
+                'Potato Patty', 'Lettuce', 'Tomato', 'Onion', 'Cheese',
+                'Avocado', 'Pickles', 'Bell Pepper', 'Mushrooms', 'Spinach'
+            ];
+            
+            const ingredientListDiv = document.getElementById('ingredient-list');
+            const orderConfirmation = document.getElementById('order-confirmation');
+            const orderSummary = document.getElementById('order-summary');
+            
+            // Generate ingredient checkboxes
+            ingredients.forEach(ingredient => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = ingredient;
+                checkbox.value = ingredient;
+                
+                const label = document.createElement('label');
+                label.htmlFor = ingredient;
+                label.textContent = ingredient;
+                
+                const div = document.createElement('div');
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                
+                ingredientListDiv.appendChild(div);
+            });
+            
+            // Place Order Button
+            document.getElementById('place-order').addEventListener('click', () => {
+                const selectedIngredients = Array.from(document.querySelectorAll('#ingredient-list input:checked'))
+                    .map(input => input.value);
+                
+                if (selectedIngredients.length === 0) {
+                    alert('Oops! You need to select at least one ingredient to place your order.');
+                    return;
+                }
+                
+                orderSummary.textContent = `Awesome! Your burger includes: ${selectedIngredients.join(', ')}. Enjoy your delicious creation!`;
+                orderConfirmation.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
+
+
